@@ -3,7 +3,7 @@ package basicWhistGame;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Player {
+public abstract class Player {
 	ArrayList<Trick> takenTricks = new ArrayList<Trick>();
 	ArrayList<Card> hand = new ArrayList<Card>();
 	CardSorter sorter = new CardSorter();
@@ -20,8 +20,10 @@ public class Player {
 	
 	public Card playCard()
 	{
-		return hand.remove(0);
+		return hand.remove(pickCard());
 	}
+	
+	public abstract int pickCard();
 	
 	public void collectTrick(Trick t)
 	{

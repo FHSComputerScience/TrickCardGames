@@ -14,9 +14,10 @@ public class BasicTrickGame {
 	{
 		NUM_OF_PLAYERS = 4;
 		players = new Player[NUM_OF_PLAYERS];
-		for(int i = 0; i < NUM_OF_PLAYERS; i ++)
+		players[0] = new HumanPlayer();
+		for(int i = 1; i < NUM_OF_PLAYERS; i ++)
 		{
-			players[i] = new Player();
+			players[i] = new ComputerPlayer();
 		}
 	}
 	
@@ -30,22 +31,26 @@ public class BasicTrickGame {
 	{
 		deal(shuffle(FULL_DECK));
 		sortHands();
-		display();
+		//display();
 		int lead = 0;
 		for(int i = 0; i < FULL_DECK.size()/NUM_OF_PLAYERS; i ++)
 		{
-			runTrick(lead);
+			lead = runTrick(lead);
 		}
 	}
 	
 	public int runTrick(int leadNum) //returns number of winner
 	{
-		ArrayList<Card> currentTrick = new ArrayList<Card>();
+		Trick currentTrick = new Trick();
 		for(int i = leadNum; i != leadNum + NUM_OF_PLAYERS; i ++)
 		{
 			currentTrick.add(players[i%NUM_OF_PLAYERS].playCard());
+			System.out.println(currentTrick);
 		}
-		return ((trick.determineWinner() + leadNum)%NUM_OF_PLAYERS);
+		int winner = (currentTrick.determineWinner() + leadNum)%NUM_OF_PLAYERS;
+		System.out.println(winner);
+		players[winner].collectTrick(currentTrick);
+		return winner;
 	}
 	
 	public void sortHands()

@@ -8,7 +8,7 @@ public class TrickWinnerDeterminer implements Comparator<Card>
 	{
 		if(c1.getSuit() != c2.getSuit())
 		{
-			return 1;
+			return -1;
 		}
 		else
 		{

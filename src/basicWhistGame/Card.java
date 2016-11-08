@@ -30,7 +30,26 @@ public class Card
 	
 	public String toString()
 	{
-		return rank + "" + suit;
+		String retStr = rank + "";
+		switch(suit)
+		{
+		case CLUBS:
+			retStr += 'c';
+			break;
+		case DIAMONDS:
+			retStr += 'd';
+			break;
+		case SPADES:
+			retStr += 's';
+			break;
+		case HEARTS:
+			retStr += 'h';
+			break;
+		default:
+			System.out.println("This is broken.");
+		}
+		
+		return retStr;
 	}
 
 	public int getRank() {
