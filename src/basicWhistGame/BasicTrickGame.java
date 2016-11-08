@@ -4,14 +4,14 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public abstract class BasicTrickGame {
+public class BasicTrickGame {
 	private final int NUM_OF_PLAYERS;
-	private boolean gameOver = false;
+	//private boolean gameOver = false;
 	private static final List<Card> FULL_DECK = Collections.unmodifiableList(basicDeck());
 	private Player[] players;
 	
-	public BasicTrickGame() {
-		// TODO Auto-generated constructor stub
+	public BasicTrickGame()
+	{
 		NUM_OF_PLAYERS = 4;
 		players = new Player[NUM_OF_PLAYERS];
 		for(int i = 0; i < NUM_OF_PLAYERS; i ++)
@@ -29,11 +29,35 @@ public abstract class BasicTrickGame {
 	public void run()
 	{
 		deal(shuffle(FULL_DECK));
+		sortHands();
+		display();
+		int lead = 0;
+		for(int i = 0; i < FULL_DECK.size()/NUM_OF_PLAYERS; i ++)
+		{
+			runTrick(lead);
+		}
+	}
+	
+	public int runTrick(int leadNum) //returns number of winner
+	{
+		ArrayList<Card> currentTrick = new ArrayList<Card>();
+		for(int i = leadNum; i != leadNum + NUM_OF_PLAYERS; i ++)
+		{
+			currentTrick.add(players[i%NUM_OF_PLAYERS].playCard());
+		}
+		return ((trick.determineWinner() + leadNum)%NUM_OF_PLAYERS);
+	}
+	
+	public void sortHands()
+	{
 		for(Player p : players)
 		{
 			p.sortHand();
 		}
-		
+	}
+	
+	public void display()
+	{
 		for(Player p : players)
 		{
 			for(Card c : p.getHand())
@@ -42,13 +66,18 @@ public abstract class BasicTrickGame {
 			}
 			System.out.println();
 		}
-		if(gameOver)
-		{
-			System.out.println("gg");
-		}
 	}
 	
-	public abstract void setValues(); 
+	public void setValues()
+	{
+		for(Player p : players)
+		{
+			for(Card c : p.getHand())
+			{
+				c.setValue(0);
+			}
+		}
+	}
 	//Sets point values for individual cards; different for each game.
 	//Important: In games such as whist, individual cards do not hold values.
 	//In this case, each card can have a value of 0, because each trick will calculate its own value (which will just be "return 1").

@@ -18,6 +18,15 @@ public class Player {
 		Collections.sort(hand, sorter);
 	}
 	
+	public Card playCard()
+	{
+		return hand.remove(0);
+	}
+	
+	public void collectTrick(Trick t)
+	{
+		this.takenTricks.add(t);
+	}
 	
 	public ArrayList<Trick> getTakenTricks() {
 		return takenTricks;
@@ -33,5 +42,4 @@ public class Player {
 	public void setHand(ArrayList<Card> hand) {
 		this.hand = hand;
 	}
-	
 }

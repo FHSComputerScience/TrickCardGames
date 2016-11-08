@@ -3,7 +3,7 @@ package basicWhistGame;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class Trick extends ArrayList<Card> implements Comparator<Card>
+public class Trick extends ArrayList<Card>
 {
 	int numDown = 0;
 	public Trick(int length)
@@ -29,9 +29,5 @@ public class Trick extends ArrayList<Card> implements Comparator<Card>
 			}
 		}
 		return winnerNum;
-	}
-	public int compare(Card c1, Card c2)
-	{
-		return 0;
 	}
 }
